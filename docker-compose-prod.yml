@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  site:
+    build:
+      target: prod
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.astrotus.rule=Host(`${SITE_URL}`)"
+      - "traefik.http.routers.astrotus.entrypoints=https"
+      - "traefik.http.routers.astrotus.tls.certresolver=httpresolver"
+      - "traefik.http.routers.astrotus.middlewares=security-headers-astrotus"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.accesscontrolallowmethods=GET, OPTIONS, PUT, POST, DELETE, HEAD, PATCH"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.addvaryheader=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.hostsproxyheaders=X-Forwarded-Host"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.sslredirect=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.sslproxyheaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.stsseconds=63072000"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.stsincludesubdomains=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.stspreload=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.forcestsheader=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.permissionspolicy=camera=(), accelerometer=(), gamepad=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=()"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.framedeny=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.contentsecuritypolicy=default-src 'none'; connect-src 'self'; font-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline' data:; style-src 'self' 'unsafe-inline'"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.contenttypenosniff=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.browserxssfilter=true"
+      - "traefik.http.middlewares.security-headers-astrotus.headers.referrerpolicy=same-origin"
+    networks:
+      - traefik_network
+
+  cms:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.astrotus_directus.rule=Host(`${CMS_URL}`)
+      - traefik.http.routers.astrotus_directus.entrypoints=https
+      - traefik.http.routers.astrotus_directus.tls.certresolver=httpresolver
+      - traefik.docker.network=traefik_network
+    networks:
+      - traefik_network
+
+networks:
+  traefik_network:
+    external: true

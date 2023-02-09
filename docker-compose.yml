@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  site:
+    container_name: ${NAME}
+    restart: unless-stopped
+    depends_on:
+      - cms
+    networks:
+      - cms
+  cms:
+    container_name: ${NAME}_cms
+    restart: unless-stopped
+    image: directus/directus:9.22.4
+    environment:
+      - DB_CLIENT=pg
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - KEY=${KEY}
+      - SECRET=${SECRET}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - PUBLIC_URL=https://${CMS_URL}
+      - CACHE_ENABLED=false
+    volumes:
+      - ./data/uploads:/directus/uploads
+    depends_on:
+      - database
+    networks:
+      - cms
+      - database
+
+  database:
+    container_name: ${NAME}_database
+    image: postgis/postgis:13-master
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - ./data/database:/var/lib/postgresql/data
+    networks:
+      - database
+
+networks:
+  cms:
+  database:

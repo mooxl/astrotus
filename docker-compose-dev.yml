@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  site:
+    build:
+      target: dev
+    volumes:
+      - ./src:/base/src
+      - .env.development:/base/.env.development
+    ports:
+      - 3000:3000
+
+  cms:
+    ports:
+      - 8055:8055
+
+  database:
+    ports:
+      - 5432:5432

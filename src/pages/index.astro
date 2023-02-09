@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { directus } from "../utils/directus";
+let name;
+try {
+  name = (
+    await directus()!
+      .items("test")
+      .readByQuery({ fields: ["input"] })
+  ).data;
+} catch (error) {
+  console.log(error);
+}
+---
+
+<Layout title="Welcome to Astrotus">
+  <main class="flex min-h-screen flex-col justify-center gap-5 text-center">
+    <h1 class="text-5xl font-bold">
+      Welcome to <span class="text-orange-400"
+        >{(name && name[0].input) || "Astrotus"}</span
+      >
+    </h1>
+    <p>This is a starter template for Astro + Directus. <br /></p>
+  </main>
+</Layout>

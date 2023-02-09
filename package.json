@@ -1,0 +1,28 @@
+{
+  "name": "astrotus",
+  "type": "module",
+  "version": "1.0",
+  "scripts": {
+    "dev": "docker compose -f docker-compose.yml -f docker-compose-dev.yml --env-file .env.development up -d",
+    "start": "astro dev --host",
+    "build": "astro build",
+    "prod": "docker compose -f docker-compose.yml -f docker-compose-dev.yml up -d",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/image": "^0.14.1",
+    "@astrojs/prefetch": "^0.1.2",
+    "@astrojs/sitemap": "^1.0.1",
+    "@astrojs/tailwind": "^3.0.1",
+    "@directus/sdk": "^10.3.1",
+    "astro": "^2.0.7",
+    "astro-compress": "^1.1.31",
+    "astro-critters": "^1.1.29",
+    "astro-icon": "^0.8.0",
+    "tailwindcss": "^3.0.24"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.2"
+  }
+}
