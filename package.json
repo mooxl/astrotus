@@ -6,7 +6,7 @@
     "dev": "docker compose -f docker-compose.yml -f docker-compose-dev.yml --env-file .env.development up -d",
     "start": "astro dev --host",
     "build": "astro build",
-    "prod": "docker compose -f docker-compose.yml -f docker-compose-dev.yml up -d",
+    "prod": "docker compose -f docker-compose.yml -f docker-compose-dev.yml --env-file .env.production up -d",
     "astro": "astro"
   },
   "dependencies": {
