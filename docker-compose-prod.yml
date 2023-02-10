@@ -26,6 +26,7 @@ services:
       - "traefik.http.middlewares.security-headers-astrotus.headers.contenttypenosniff=true"
       - "traefik.http.middlewares.security-headers-astrotus.headers.browserxssfilter=true"
       - "traefik.http.middlewares.security-headers-astrotus.headers.referrerpolicy=same-origin"
+      - traefik.docker.network=traefik_network
     networks:
       - traefik_network
 
