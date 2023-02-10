@@ -23,7 +23,7 @@ services:
       - SECRET=${SECRET}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-      - PUBLIC_URL=${CMS_URL}
+      - PUBLIC_URL=${https://CMS_URL}
       - CACHE_ENABLED=false
     volumes:
       - ./data/uploads:/directus/uploads
