@@ -5,7 +5,7 @@ let name;
 try {
   name = (
     await directus()!
-      .items("test")
+      .items("item")
       .readByQuery({ fields: ["input"] })
   ).data;
 } catch (error) {
