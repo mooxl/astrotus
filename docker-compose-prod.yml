@@ -32,9 +32,9 @@ services:
   cms:
     labels:
       - traefik.enable=true
-      - traefik.http.routers.astrotus_directus.rule=Host(`${CMS_URL}`)
-      - traefik.http.routers.astrotus_directus.entrypoints=https
-      - traefik.http.routers.astrotus_directus.tls.certresolver=httpresolver
+      - traefik.http.routers.astrotus_cms.rule=Host(`${CMS_URL}`)
+      - traefik.http.routers.astrotus_cms.entrypoints=https
+      - traefik.http.routers.astrotus_cms.tls.certresolver=httpresolver
       - traefik.docker.network=traefik_network
     networks:
       - traefik_network
