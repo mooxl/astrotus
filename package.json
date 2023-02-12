@@ -7,6 +7,7 @@
     "start": "astro dev --host",
     "build": "astro build",
     "prod": "docker compose -f docker-compose.yml -f docker-compose-prod.yml --env-file .env.production up -d --build",
+    "dump": "docker exec -i astrotus_database /bin/sh -c 'PGPASSWORD=password pg_dump --username directus directus' > ./dump.sql",
     "astro": "astro"
   },
   "dependencies": {
